@@ -16,5 +16,3 @@ export async function load({
 		user: user.status == 200 && (await user.json())
 	};
 }
-
-export const ssr = false;
