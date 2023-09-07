@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import Header from '../components/Header.svelte';
 	import { deleteCookie } from '../module/cookie';
 	import { themeColor } from '../store/theme';
@@ -8,7 +9,7 @@
 	export let data;
 
 	user.set(data?.user || null);
-	if (data?.user) deleteCookie('Authorization');
+	if (browser && data?.user) deleteCookie('Authorization');
 
 	$: style = Object.entries($themeColor || {})
 		.filter(([key]) => key != 'name')

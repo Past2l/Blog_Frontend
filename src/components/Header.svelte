@@ -8,7 +8,9 @@
 <header>
 	<PageWrapper>
 		<div class="wrapper">
-			<img class="profile icon-36" src="/favicon.png" alt="icon" />
+			<a class="icon-36" href="/" title="홈으로 이동">
+				<img class="profile icon-36" src="/favicon.png" alt="icon" />
+			</a>
 			<ul>
 				<a class="header-btn" href="/search" title="글 검색">
 					<li>
@@ -16,20 +18,28 @@
 					</li>
 				</a>
 				{#if $user && $user.owner}
-					<a class="header-btn" href="/post" title="글 업로드">
+					<a class="header-btn only-pc" href="/post" title="글 업로드">
 						<li>
 							<img class="svg icon-36" src="/icons/post.svg" alt="post" />
 						</li>
 					</a>
-					<a class="header-btn" href="/history" title="방문 기록">
+					<a class="header-btn only-pc" href="/history" title="방문 기록">
 						<li>
 							<img class="svg icon-36" src="/icons/history.svg" alt="history" />
 						</li>
 					</a>
 				{/if}
+				{#if $user}
+					<a class="header-btn" href="/setting" title="설정">
+						<li>
+							<img class="svg icon-36" src="/icons/setting.svg" alt="setting" />
+						</li>
+					</a>
+				{/if}
+				<!-- svelte-ignore a11y-invalid-attribute -->
 				<a
 					class="header-btn"
-					href="#theme"
+					href=""
 					title="{$theme == 'dark' ? '밝은' : '어두운'} 화면으로 변경"
 					on:click={() => {
 						theme.set($theme == 'dark' ? 'light' : 'dark');
@@ -75,6 +85,7 @@
 
 	.wrapper {
 		padding-inline: 40px;
+		padding-inline-start: 48px;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -83,7 +94,6 @@
 	}
 
 	.profile {
-		margin-inline-start: 8px;
 		border-radius: 8px;
 	}
 
@@ -112,9 +122,14 @@
 	@media (max-width: 768px) {
 		.wrapper {
 			padding-inline: 20px;
+			padding-inline-start: 28px;
 		}
 		ul {
 			gap: 8px;
+		}
+
+		.only-pc {
+			display: none;
 		}
 	}
 </style>

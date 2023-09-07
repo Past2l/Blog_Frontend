@@ -11,16 +11,20 @@ const initialValue = browser
 		: defaultValue
 	: defaultValue;
 
-export const theme = writable<string | null>(initialValue);
-export const themeColor = writable<JSON | null>(null);
+const initialColorValue = browser
+	? localStorage.getItem('themeColor')
+		? JSON.parse(localStorage.getItem('themeColor') as string)
+		: null
+	: null;
 
-theme.subscribe((value) => {
+export const theme = writable<string | null>(initialValue);
+export const themeColor = writable<JSON | null>(initialColorValue);
+
+theme.subscribe(async (value) => {
 	if (browser) window.localStorage.setItem('theme', value || 'light');
-	(async () => {
-		const fetchTheme = await fetch(`${PUBLIC_BACKEND_URL}/theme/${value}`);
-		const themeData = await fetchTheme.json();
-		themeColor.set(themeData);
-	})();
+	const fetchTheme = await fetch(`${PUBLIC_BACKEND_URL}/theme/${value}`);
+	const themeData = await fetchTheme.json();
+	themeColor.set(themeData);
 });
 
 themeColor.subscribe((value) => {
