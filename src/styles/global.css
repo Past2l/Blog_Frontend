@@ -11,7 +11,3 @@ main {
 	width: 100vw;
 }
 
-body {
-	background: var(--input-background);
-	color: var(--text);
-}

@@ -25,3 +25,10 @@
 	<Header />
 	<slot />
 </main>
+
+<style>
+	:global(body) {
+		background: var(--input-background);
+		color: var(--text);
+	}
+</style>
