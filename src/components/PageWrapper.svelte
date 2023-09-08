@@ -1,16 +1,20 @@
-<div>
+<script lang="ts">
+	export let width: number | null = 1170;
+</script>
+
+<div class="wrapper_{width}">
 	<slot />
 </div>
 
-<style>
-	div {
+{@html `<style>
+	.wrapper_${width} {
 		height: 100%;
 		margin: 0 auto;
 		width: 100%;
 	}
-	@media (min-width: 1171px) {
-		div {
-			width: 1170px;
+	@media (min-width: ${width + 1}px) {
+		.wrapper_${width} {
+			width: ${width}px;
 		}
 	}
-</style>
+</style>`}
