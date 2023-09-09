@@ -25,7 +25,7 @@
 					</a>
 				{/if}
 				<div
-					class="header-btn"
+					class="header-btn click"
 					title="{$theme == 'dark' ? '밝은' : '어두운'} 화면으로 변경"
 					on:click={() => {
 						theme.set($theme == 'dark' ? 'light' : 'dark');
@@ -43,7 +43,7 @@
 					</a>
 				{:else}
 					<div>
-						<div class="header-btn" on:click={() => (accountClick = !accountClick)} title="계정">
+						<div class="header-btn click" on:click={() => (accountClick = !accountClick)} title="계정">
 							<img class="svg icon" src="/icons/account.svg" alt="account" />
 						</div>
 						{#if accountClick}
@@ -141,6 +141,10 @@
 		padding: 1rem 1.5rem;
 		cursor: pointer;
 		color: var(--text);
+	}
+
+	.click {
+		cursor: pointer;
 	}
 
 	.only-mobile {
