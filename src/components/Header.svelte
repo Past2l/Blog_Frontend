@@ -3,73 +3,78 @@
 	import { logout } from '../modules/user';
 	import { theme } from '../store/theme';
 	import { user } from '../store/user';
+
+	let accountClick = false;
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <header>
 	<PageWrapper>
 		<div class="wrapper">
-			<a class="icon-36" href="/" title="홈으로 이동">
-				<img class="profile icon-36" src="/favicon.png" alt="icon" />
+			<a href="/" title="홈으로 이동">
+				<img class="icon profile" src="/favicon.png" alt="icon" />
 			</a>
-			<ul>
+			<div class="header-icons">
 				<a class="header-btn" href="/search" title="글 검색">
-					<li>
-						<img class="svg icon-36" src="/icons/search.svg" alt="search" />
-					</li>
+					<img class="svg icon" src="/icons/search.svg" alt="search" />
 				</a>
 				{#if $user && $user.owner}
 					<a class="header-btn only-pc" href="/post" title="글 업로드">
-						<li>
-							<img class="svg icon-36" src="/icons/post.svg" alt="post" />
-						</li>
-					</a>
-					<a class="header-btn only-pc" href="/history" title="방문 기록">
-						<li>
-							<img class="svg icon-36" src="/icons/history.svg" alt="history" />
-						</li>
+						<img class="svg icon" src="/icons/post.svg" alt="post" />
 					</a>
 				{/if}
-				{#if $user}
-					<a class="header-btn" href="/setting" title="설정">
-						<li>
-							<img class="svg icon-36" src="/icons/setting.svg" alt="setting" />
-						</li>
-					</a>
-				{/if}
-				<!-- svelte-ignore a11y-invalid-attribute -->
-				<a
+				<div
 					class="header-btn"
-					href=""
 					title="{$theme == 'dark' ? '밝은' : '어두운'} 화면으로 변경"
 					on:click={() => {
 						theme.set($theme == 'dark' ? 'light' : 'dark');
 					}}
 				>
-					<li>
-						<img
-							class="svg icon-36"
-							src="/icons/{$theme == 'dark' ? 'light' : 'dark'}.svg"
-							alt={$theme == 'dark' ? 'light' : 'dark'}
-						/>
-					</li>
-				</a>
+					<img
+						class="svg icon"
+						src="/icons/{$theme == 'dark' ? 'light' : 'dark'}.svg"
+						alt={$theme == 'dark' ? 'light' : 'dark'}
+					/>
+				</div>
 				{#if !$user}
 					<a class="header-btn" href="/login" title="로그인">
-						<li>
-							<img class="svg icon-36" src="/icons/login.svg" alt="login" />
-						</li>
+						<img class="svg icon" src="/icons/login.svg" alt="login" />
 					</a>
 				{:else}
-					<a class="header-btn" href="#logout" on:click={logout} title="로그아웃">
-						<li>
-							<img class="svg icon-36" src="/icons/logout.svg" alt="logout" />
-						</li>
-					</a>
+					<div>
+						<div class="header-btn" on:click={() => (accountClick = !accountClick)} title="계정">
+							<img class="svg icon" src="/icons/account.svg" alt="account" />
+						</div>
+						{#if accountClick}
+							<div class="account-wrapper">
+								<div class="account">
+									<a
+										href="/post"
+										on:click={() => (accountClick = false)}
+										class="account-button only-mobile"
+									>
+										글 작성
+									</a>
+									{#if $user.owner}
+										<a href="/history" on:click={() => (accountClick = false)}>
+											<div class="account-button">통계</div>
+										</a>
+									{/if}
+									<a href="/setting" on:click={() => (accountClick = false)}>
+										<div class="account-button">설정</div>
+									</a>
+									<div class="account-button" on:click={logout}>로그아웃</div>
+								</div>
+							</div>
+						{/if}
+					</div>
 				{/if}
-			</ul>
+			</div>
 		</div>
 	</PageWrapper>
 </header>
+<PageWrapper />
 
 <style>
 	header {
@@ -97,26 +102,49 @@
 		border-radius: 8px;
 	}
 
-	.icon-36 {
-		width: 36px;
-		height: 36px;
-	}
-
 	.svg {
 		filter: var(--svg);
 	}
 
-	ul {
+	.header-icons {
 		display: flex;
 		align-items: center;
 		list-style: none;
 		gap: 16px;
-		padding-inline-start: 0px;
+		position: relative;
 	}
 
-	li {
+	.icon {
 		display: flex;
 		align-items: center;
+		width: 36px;
+		height: 36px;
+	}
+
+	.account-wrapper {
+		position: absolute;
+		top: 100%;
+		margin-top: 1.25rem;
+		right: 0px;
+	}
+
+	.account {
+		position: relative;
+		z-index: 5;
+		width: 11rem;
+		border-radius: 8px;
+		background: var(--background);
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+	}
+
+	.account-button {
+		padding: 1rem 1.5rem;
+		cursor: pointer;
+		color: var(--text);
+	}
+
+	.only-mobile {
+		display: none;
 	}
 
 	@media (max-width: 768px) {
@@ -124,12 +152,16 @@
 			padding-inline: 20px;
 			padding-inline-start: 28px;
 		}
-		ul {
+		.header-icons {
 			gap: 8px;
 		}
 
 		.only-pc {
 			display: none;
+		}
+
+		.only-mobile {
+			display: block;
 		}
 	}
 </style>
