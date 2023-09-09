@@ -43,7 +43,11 @@
 					</a>
 				{:else}
 					<div>
-						<div class="header-btn click" on:click={() => (accountClick = !accountClick)} title="계정">
+						<div
+							class="header-btn click"
+							on:click={() => (accountClick = !accountClick)}
+							title="계정"
+						>
 							<img class="svg icon" src="/icons/account.svg" alt="account" />
 						</div>
 						{#if accountClick}
@@ -154,7 +158,7 @@
 	@media (max-width: 768px) {
 		.wrapper {
 			padding-inline: 20px;
-			padding-inline-start: 28px;
+			padding-inline-start: 24px;
 		}
 		.header-icons {
 			gap: 8px;
