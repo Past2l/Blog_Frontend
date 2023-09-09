@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { logout } from '../../module/user';
+	import { logout } from '../../modules/user';
 
 	logout();
 </script>

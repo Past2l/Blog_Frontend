@@ -1,6 +1,6 @@
 <script>
 	import PageWrapper from '../components/PageWrapper.svelte';
-	import { logout } from '../module/user';
+	import { logout } from '../modules/user';
 	import { theme } from '../store/theme';
 	import { user } from '../store/user';
 </script>

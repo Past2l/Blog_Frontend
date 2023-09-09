@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import Header from '../components/Header.svelte';
-	import { deleteCookie } from '../module/cookie';
+	import { deleteCookie } from '../modules/cookie';
 	import { themeColor } from '../store/theme';
 	import { user } from '../store/user';
 	import { style } from 'svelte-body';
