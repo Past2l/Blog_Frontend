@@ -8,11 +8,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const fetchData: any[] = await data.json();
 	const themeData = fetchData.map((theme) => ({
 		name: theme.name,
-		value:
-			Object.entries(theme)
-				.filter(([key]) => key != 'name')
-				.map(([key, value]) => `--${key.replace(/_/g, '-')}:${value}`)
-				.join(';') + ';'
+		value: `body[data-theme="${theme.name}"]{${Object.entries(theme)
+			.filter(([key]) => key != 'name')
+			.map(([key, value]) => `--${key.replace(/_/g, '-')}:${value}`)
+			.join(';')};}`
 	}));
 	const lightTheme = themeData.find((theme) => theme.name == 'light')?.value;
 	const darkTheme = themeData.find((theme) => theme.name == 'dark')?.value;
@@ -20,10 +19,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		transformPageChunk: ({ html }) =>
 			html
 				.replace('<body', theme ? `<body data-theme="${theme}"` : '<body')
-				.replace(
-					'%theme%',
-					`<style>body,body[data-theme="light"]{${lightTheme}}body[data-theme="dark"]{${darkTheme}}</style>`
-				)
+				.replace('%theme%', `<style>body,${lightTheme}${darkTheme}</style>`)
 	});
 	return response;
 };
