@@ -5,6 +5,10 @@
 	import { user } from '../store/user';
 
 	let accountClick = false;
+
+	const toggleAccount = () => {
+		accountClick = !accountClick;
+	};
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -43,29 +47,21 @@
 					</a>
 				{:else}
 					<div>
-						<div
-							class="header-btn click"
-							on:click={() => (accountClick = !accountClick)}
-							title="계정"
-						>
+						<div class="header-btn click" on:click={toggleAccount} title="계정">
 							<img class="svg icon" src="/icons/account.svg" alt="account" />
 						</div>
 						{#if accountClick}
 							<div class="account-wrapper">
 								<div class="account">
-									<a
-										href="/post"
-										on:click={() => (accountClick = false)}
-										class="account-button only-mobile"
-									>
+									<a href="/post" on:click={toggleAccount} class="account-button only-mobile">
 										글 작성
 									</a>
 									{#if $user.owner}
-										<a href="/history" on:click={() => (accountClick = false)}>
+										<a href="/history" on:click={toggleAccount}>
 											<div class="account-button">통계</div>
 										</a>
 									{/if}
-									<a href="/setting" on:click={() => (accountClick = false)}>
+									<a href="/setting" on:click={toggleAccount}>
 										<div class="account-button">설정</div>
 									</a>
 									<div class="account-button" on:click={logout}>로그아웃</div>
