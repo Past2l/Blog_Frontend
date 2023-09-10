@@ -1,8 +1,9 @@
 <script lang="ts">
 	export let width: number | null = 1170;
+	export let style: string | null = '';
 </script>
 
-<div class="wrapper_{width}">
+<div class="wrapper_{width}" {style}>
 	<slot />
 </div>
 
@@ -17,4 +18,5 @@
 			width: ${width}px;
 		}
 	}
+
 </style>`}
