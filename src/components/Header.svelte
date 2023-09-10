@@ -83,8 +83,8 @@
 		display: flex;
 		justify-content: space-between;
 		height: 60px;
-		background: var(--background);
-		box-shadow: 0 4px 20px rgba(96, 96, 96, 0.25);
+		background: var(--bg1);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 		z-index: 5;
 	}
 
@@ -103,7 +103,7 @@
 	}
 
 	.svg {
-		filter: var(--svg);
+		filter: var(--icon1);
 	}
 
 	.header-icons {
@@ -133,14 +133,14 @@
 		z-index: 5;
 		width: 11rem;
 		border-radius: 8px;
-		background: var(--background);
+		background: var(--bg1);
 		box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
 	}
 
 	.account-button {
 		padding: 1rem 1.5rem;
 		cursor: pointer;
-		color: var(--text);
+		color: var(--text1);
 	}
 
 	.click {

@@ -20,7 +20,7 @@
 
 <style>
 	:global(body) {
-		background: var(--input-background);
-		color: var(--text);
+		background: var(--bg3);
+		color: var(--text1);
 	}
 </style>
